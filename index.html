@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenith Store — Le Labo d'Idées & Formations Digitales</title>
+  <style>
+    :root {
+      --navy: #0B1942;
+      --navy-light: #162B66;
+      --gold: #F5B82E;
+      --lavender: #F3F2FA;
+      --lavender-dark: #E6E4F5;
+      --white: #FFFFFF;
+      --text: #1E2538;
+      --muted: #5A647E;
+      --green: #16A34A;
+      --border: #E0DDF2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--lavender);
+      color: var(--text);
+      line-height: 1.55;
+      padding-bottom: 90px;
+    }
+
+    .container {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0 18px;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .badge-momo {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(11, 25, 66, 0.05);
+    }
+
+    .dot-green {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Hero */
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--navy-light);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      line-height: 1.18;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .lead {
+      font-size: 0.96rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    /* Labo Card */
+    .lab-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 20px 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(11, 25, 66, 0.05);
+      margin-bottom: 24px;
+    }
+
+    .lab-label {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .lab-label span {
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .skill-pill {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .skill-pill.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(11, 25, 66, 0.18);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin: 16px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .divider:not(:empty)::before {
+      margin-right: 12px;
+    }
+
+    .divider:not(:empty)::after {
+      margin-left: 12px;
+    }
+
+    .custom-input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      font-size: 0.94rem;
+      margin-bottom: 14px;
+      outline: none;
+      background: #FAFAFE;
+    }
+
+    .custom-input:focus {
+      border-color: var(--navy);
+      background: var(--white);
+    }
+
+    .btn-generate {
+      width: 100%;
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 15px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(11, 25, 66, 0.18);
+      transition: transform 0.12s ease;
+    }
+
+    .btn-generate:active {
+      transform: scale(0.98);
+    }
+
+    /* Résultats générés */
+    .ideas-container {
+      display: none;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1.5px dashed var(--border);
+    }
+
+    .ideas-header {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .idea-card {
+      background: var(--lavender);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .idea-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .idea-title {
+      font-weight: 800;
+      font-size: 0.96rem;
+      color: var(--navy);
+    }
+
+    .idea-price {
+      background: var(--navy);
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .idea-meta {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .idea-meta strong {
+      color: var(--navy-light);
+    }
+
+    /* Catalogue Formations Zenith Store */
+    .catalog-section {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 22px;
+      padding: 22px 18px;
+      margin-top: 24px;
+    }
+
+    .catalog-tag {
+      display: inline-block;
+      background: rgba(245, 184, 46, 0.18);
+      color: var(--gold);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .catalog-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .catalog-sub {
+      font-size: 0.9rem;
+      color: #CBD5E1;
+      margin-bottom: 16px;
+    }
+
+    .pack-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 13px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pack-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .pack-desc {
+      font-size: 0.78rem;
+      color: #CBD5E1;
+    }
+
+    .pack-badge {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 0.78rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .btn-gold {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: var(--navy);
+      text-align: center;
+      font-weight: 900;
+      font-size: 1rem;
+      padding: 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      margin-top: 16px;
+      box-shadow: 0 8px 20px rgba(245, 184, 46, 0.35);
+    }
+
+    .momo-footer {
+      text-align: center;
+      font-size: 0.76rem;
+      color: #CBD5E1;
+      margin-top: 10px;
+    }
+
+    /* Sticky Bottom Bar */
+    .sticky-bar {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 516px;
+      background: var(--navy);
+      border-radius: 999px;
+      padding: 8px 8px 8px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(11, 25, 66, 0.35);
+      z-index: 99;
+    }
+
+    .sticky-left {
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .sticky-left span {
+      color: var(--gold);
+      display: block;
+    }
+
+    .sticky-btn {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 0.86rem;
+      padding: 11px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo">Zenith Store<span>.</span></div>
+      <div class="badge-momo"><span class="dot-green"></span> Mobile Money OK</div>
+    </header>
+
+    <div class="eyebrow">LE LABO D'IDÉES • PRODUITS DIGITAUX</div>
+    <h1>Transforme ton savoir-faire en revenus en FCFA</h1>
+    <p class="lead">
+      Sélectionne jusqu'à 3 domaines ci-dessous (ou écris ta compétence). Le labo te propose immédiatement des idées de produits digitaux rentables avec la cible, le problème résolu et le prix conseillé.
+    </p>
+
+    <div class="lab-card" id="labo-section">
+      <div class="lab-label">Ce que tu sais faire <span>(jusqu'à 3 choix)</span></div>
+
+      <div class="skills-grid" id="skills-grid">
+        <button type="button" class="skill-pill" data-skill="reseaux">📱 TikTok & YouTube</button>
+        <button type="button" class="skill-pill" data-skill="ia">🤖 Intelligence Artificielle</button>
+        <button type="button" class="skill-pill" data-skill="import">📦 Import Chine-Afrique</button>
+        <button type="button" class="skill-pill" data-skill="ads">📣 Publicité & Vente</button>
+        <button type="button" class="skill-pill" data-skill="trading">📈 Trading & Crypto</button>
+        <button type="button" class="skill-pill" data-skill="cuisine">🍳 Cuisine</button>
+        <button type="button" class="skill-pill" data-skill="coiffure">💇🏾‍♀️ Coiffure, beauté</button>
+        <button type="button" class="skill-pill" data-skill="couture">🧵 Couture</button>
+        <button type="button" class="skill-pill" data-skill="elevage">🐓 Élevage</button>
+        <button type="button" class="skill-pill" data-skill="agriculture">🌱 Agriculture</button>
+        <button type="button" class="skill-pill" data-skill="informatique">💻 Informatique</button>
+        <button type="button" class="skill-pill" data-skill="langues">🗣️ Langues</button>
+        <button type="button" class="skill-pill" data-skill="enseignement">📚 Enseignement</button>
+        <button type="button" class="skill-pill" data-skill="commerce">🛍️ Commerce</button>
+        <button type="button" class="skill-pill" data-skill="emploi">🎯 Emploi, concours</button>
+        <button type="button" class="skill-pill" data-skill="argent">💰 Gestion d'argent</button>
+        <button type="button" class="skill-pill" data-skill="sport">🏃🏾 Sport, forme</button>
+        <button type="button" class="skill-pill" data-skill="photo">📸 Photo, vidéo</button>
+        <button type="button" class="skill-pill" data-skill="btp">🏗️ BTP, construction</button>
+        <button type="button" class="skill-pill" data-skill="auto">🚗 Mécanique & Auto</button>
+        <button type="button" class="skill-pill" data-skill="event">🎉 Événementiel & Déco</button>
+        <button type="button" class="skill-pill" data-skill="naturel">🌿 Santé & Bien-être</button>
+      </div>
+
+      <div class="divider">OU</div>
+
+      <div class="lab-label">Écris ta compétence avec tes mots</div>
+      <input type="text" id="custom-skill" class="custom-input" placeholder="Ex: Pâtisserie, montage vidéo CapCut, élevage de poulets..." />
+
+      <button type="button" class="btn-generate" onclick="generateIdeas()">Générer mes idées de produits →</button>
+
+      <div class="ideas-container" id="ideas-container">
+        <div class="ideas-header" id="ideas-header">Tes idées de produits rentables :</div>
+        <div id="ideas-list"></div>
+        <a href="https://zenithstore.shop" target="_blank" class="btn-gold">Lancer ma boutique & me former sur Zenith Store →</a>
+      </div>
+    </div>
+
+    <!-- Catalogue Zenith Store -->
+    <div class="catalog-section" id="boutique-section">
+      <div class="catalog-tag">BOUTIQUE OFFICIELLE • ACCÈS IMMÉDIAT</div>
+      <div class="catalog-title">Nos Formations & Packs Prêts à l'Emploi</div>
+      <p class="catalog-sub">
+        Apprends étape par étape depuis ton téléphone et encaisse tes premiers revenus en ligne en Afrique.
+      </p>
+
+      <div class="pack-item">
+        <div>
+          <div class="pack-name">📱 Monétisation TikTok & YouTube</div>
+          <div class="pack-desc">Création de compte éligible, niches RPM & retraits</div>
+        </div>
+        <div class="pack-badge">Dispo</div>
+      </div>
+
+      <div class="pack-item">
+        <div>
+          <div class="pack-name">📦 Importation Chine – Afrique</div>
+          <div class="pack-desc">Commander sur Alibaba/1688 sans arnaque</div>
+        </div>
+        <div class="pack-badge">Dispo</div>
+      </div>
+
+      <div class="pack-item">
+        <div>
+          <div class="pack-name">🤖 Pack Prompts IA & Création Faceless</div>
+          <div class="pack-desc">Générer des vidéos et visuels viraux avec l'IA</div>
+        </div>
+        <div class="pack-badge">Dispo</div>
+      </div>
+
+      <div class="pack-item">
+        <div>
+          <div class="pack-name">📣 Facebook Ads & Marketing TikTok</div>
+          <div class="pack-desc">Attirer des clients qualifiés chaque jour</div>
+        </div>
+        <div class="pack-badge">Dispo</div>
+      </div>
+
+      <div class="pack-item">
+        <div>
+          <div class="pack-name">📈 Trading & Gestion du Capital</div>
+          <div class="pack-desc">Bases solides et stratégie disciplinée</div>
+        </div>
+        <div class="pack-badge">Dispo</div>
+      </div>
+
+      <a href="https://zenithstore.shop" target="_blank" class="btn-gold">Visiter la boutique Zenith Store →</a>
+      <div class="momo-footer">Paiement mobile instantané : Orange Money, Wave, Moov Money & MTN</div>
+    </div>
+  </div>
+
+  <!-- Barre fixe en bas -->
+  <div class="sticky-bar">
+    <div class="sticky-left">
+      Zenith Store
+      <span>Formations & Ebooks</span>
+    </div>
+    <a href="https://zenithstore.shop" target="_blank" class="sticky-btn">Accéder aux offres →</a>
+  </div>
+
+  <script>
+    const productDatabase = {
+      reseaux: [
+        { titre: "Système Monétisation TikTok & YouTube depuis l'Afrique", cible: "Créateurs francophones bloqués à 0 FCFA", probleme: "Non-éligibilité géographique et mauvais réglages de compte", prix: "5 000 FCFA" },
+        { titre: "60 Hooks (accroches) viraux prêts à copier-coller", cible: "Tiktokeurs et créateurs de Reels/Shorts", probleme: "Les spectateurs quittent la vidéo dès les 2 premières secondes", prix: "3 000 FCFA" },
+        { titre: "Plan d'action 30 jours : 0 à 10 000 abonnés qualifiés", cible: "Débutants sur les réseaux sociaux", probleme: "Publication au hasard sans stratégie de croissance", prix: "4 500 FCFA" }
+      ],
+      ia: [
+        { titre: "Coffre de 150 Prompts IA pour Business & Création", cible: "Entrepreneurs et créateurs de contenu", probleme: "Manque d'inspiration et perte de temps à rédiger", prix: "4 000 FCFA" },
+        { titre: "Créer des vidéos virales IA sans montrer son visage", cible: "Créateurs TikTok et YouTube Automation", probleme: "Timidité devant la caméra et manque de matériel", prix: "6 000 FCFA" },
+        { titre: "Créer des affiches publicitaires pro au téléphone avec l'IA", cible: "Petits commerces et freelances", probleme: "Coût élevé des graphistes pour chaque promo", prix: "4 500 FCFA" }
+      ],
+      import: [
+        { titre: "Répertoire de 50 fournisseurs vérifiés (Chine & Turquie)", cible: "Commerçants et débutants e-commerce", probleme: "Peur des arnaques et mauvaise qualité de marchandise", prix: "5 000 FCFA" },
+        { titre: "Guide complet : Commander sur 1688 et livrer en Afrique", cible: "Particuliers souhaitant revendre sans gros capital", probleme: "Barrière de la langue et frais de transit flous", prix: "6 500 FCFA" },
+        { titre: "Pack 30 scripts de vente WhatsApp pour liquider son stock", cible: "Vendeurs sur statut WhatsApp et Facebook", probleme: "Beaucoup de messages mais peu de paiements", prix: "3 500 FCFA" }
+      ],
+      ads: [
+        { titre: "Maîtriser Facebook & TikTok Ads avec un petit budget", cible: "E-commerçants et formateurs en ligne", probleme: "Budget publicitaire gaspillé sans aucune vente", prix: "6 500 FCFA" },
+        { titre: "25 modèles de textes publicitaires haute conversion", cible: "Vendeurs de produits physiques et digitaux", probleme: "Annonces ignorées ou bloquées par l'algorithme", prix: "3 500 FCFA" },
+        { titre: "Tunnel de vente WhatsApp : convertir ses prospects en 5 min", cible: "Infopreneurs et prestataires de services", probleme: "Clients qui demandent le prix puis disparaissent", prix: "4 000 FCFA" }
+      ],
+      trading: [
+        { titre: "Les bases solides du Trading & Gestion du risque", cible: "Débutants voulant éviter de cramer leur capital", probleme: "Pertes rapides dues au manque de discipline", prix: "7 000 FCFA" },
+        { titre: "Journal de Trading & Calculateur de taille de lot", cible: "Traders Forex, Indices et Crypto", probleme: "Absence de suivi statistique des performances", prix: "3 500 FCFA" },
+        { titre: "Checklist d'analyse technique avant chaque entrée", cible: "Traders intermédiaires", probleme: "Entrées impulsives sur le marché", prix: "4 000 FCFA" }
+      ],
+      cuisine: [
+        { titre: "30 recettes de jus naturels et pâtisseries rentables à vendre", cible: "Femmes et jeunes cherchant une activité à domicile", probleme: "Ne pas savoir quoi préparer avec une forte marge", prix: "4 000 FCFA" },
+        { titre: "Guide : Lancer un service traiteur ou livraison de repas au bureau", cible: "Passionnés de cuisine", probleme: "Difficulté à calculer les coûts et fixer les prix", prix: "5 000 FCFA" },
+        { titre: "Ebook : Menus équilibrés de la semaine pour familles occupées", cible: "Mères actives et travailleurs", probleme: "Casse-tête quotidien pour trouver des idées de repas", prix: "3 000 FCFA" }
+      ],
+      coiffure: [
+        { titre: "Guide complet : Entretien et pousse rapide des cheveux crépus", cible: "Femmes souhaitant des cheveux longs et sains", probleme: "Casse des cheveux et achats de produits inefficaces", prix: "4 500 FCFA" },
+        { titre: "Lancer son business de perruques et mèches depuis WhatsApp", cible: "Coiffeuses et vendeuses beauté", probleme: "Forte concurrence et manque de fidélisation client", prix: "5 500 FCFA" },
+        { titre: "Mini-formation : Pose de perruque lace frontal comme une pro", cible: "Débutantes en coiffure", probleme: "Démarcation visible et décollement rapide", prix: "6 000 FCFA" }
+      ],
+      couture: [
+        { titre: "Calculateur de métrage tissu et grille de tarification couture", cible: "Couturiers et stylistes", probleme: "Sous-facturer son travail et perdre de l'argent", prix: "3 500 FCFA" },
+        { titre: "Guide : Créer sa marque de prêt-à-porter africain moderne", cible: "Créateurs de mode", probleme: "Difficulté à vendre en dehors de son quartier", prix: "5 500 FCFA" },
+        { titre: "Pack patrons PDF : 10 modèles tendances faciles à coudre", cible: "Apprentis couturiers", probleme: "Manque de précision dans les coupes modernes", prix: "4 500 FCFA" }
+      ],
+      elevage: [
+        { titre: "Guide pratique : Réussir l'élevage de poulets de chair en 45 jours", cible: "Éleveurs débutants", probleme: "Mortalité élevée et mauvaise gestion de l'alimentation", prix: "6 000 FCFA" },
+        { titre: "Calendrier de prophylaxie et suivi sanitaire automatisé", cible: "Fermiers et porteurs de projet agropastoral", probleme: "Oubli des vaccins et pertes financières", prix: "4 000 FCFA" },
+        { titre: "Fabriquer son propre aliment volaille économique à la ferme", cible: "Éleveurs souhaitant réduire leurs charges", probleme: "Coût trop élevé des provendes industrielles", prix: "5 500 FCFA" }
+      ],
+      agriculture: [
+        { titre: "Guide de culture rentable du piment, tomate et oignon hors-saison", cible: "Agriculteurs et investisseurs", probleme: "Baisse des rendements et attaques de parasites", prix: "5 500 FCFA" },
+        { titre: "Compte d'exploitation type pour 1 hectare maraîcher", cible: "Porteurs de projet agricole", probleme: "Mauvaise estimation du budget de démarrage", prix: "4 000 FCFA" },
+        { titre: "Produire des engrais et pesticides biologiques à moindre coût", cible: "Producteurs maraîchers", probleme: "Cherté des intrants chimiques", prix: "4 500 FCFA" }
+      ],
+      informatique: [
+        { titre: "Maîtriser Excel de A à Z pour décrocher un emploi administratif", cible: "Étudiants et chercheurs d'emploi", probleme: "Échec aux tests pratiques en entreprise", prix: "5 000 FCFA" },
+        { titre: "Guide : Créer et vendre des sites web sans coder", cible: "Freelances et jeunes diplômés", probleme: "Ne pas savoir coder mais vouloir facturer des clients", prix: "6 500 FCFA" },
+        { titre: "Sécuriser ses comptes WhatsApp, Facebook et Mobile Money", cible: "Grand public et commerçants", probleme: "Piratage de comptes et arnaques en ligne", prix: "3 000 FCFA" }
+      ],
+      langues: [
+        { titre: "Parler anglais professionnel en 30 jours (15 min/jour)", cible: "Étudiants et cadres francophones", probleme: "Blocage à l'oral malgré des années d'école", prix: "5 000 FCFA" },
+        { titre: "Pack 200 phrases indispensables pour faire du business en Chine", cible: "Commerçants et importateurs", probleme: "Difficulté à négocier avec les fournisseurs", prix: "4 000 FCFA" },
+        { titre: "Guide de préparation aux tests de langue (TEF / TCF / IELTS)", cible: "Candidats à l'immigration ou études à l'étranger", probleme: "Manque de méthodologie pour maximiser son score", prix: "6 500 FCFA" }
+      ],
+      enseignement: [
+        { titre: "Fiches de révision résumées : Réussir le BAC / BEPC sans stress", cible: "Élèves et parents d'élèves", probleme: "Cours trop longs et manque de méthode de révision", prix: "3 500 FCFA" },
+        { titre: "Guide : Donner des cours particuliers en ligne et encaisser par Mobile Money", cible: "Enseignants et étudiants brillants", probleme: "Revenus limités aux déplacements physiques", prix: "4 500 FCFA" },
+        { titre: "50 exercices corrigés pas à pas (Maths / Physique / Français)", cible: "Collégiens et lycéens", probleme: "Difficulté à s'entraîner seul à la maison", prix: "3 000 FCFA" }
+      ],
+      commerce: [
+        { titre: "Lancer un commerce rentable avec moins de 50 000 FCFA", cible: "Jeunes et salariés cherchant un complément", probleme: "Manque de capital et peur de perdre ses économies", prix: "4 500 FCFA" },
+        { titre: "Tableau de gestion de stock, ventes et bénéfices sur téléphone", cible: "Boutiquiers et e-commerçants", probleme: "Mélange entre caisse personnelle et bénéfice réel", prix: "3 500 FCFA" },
+        { titre: "Techniques de négociation et fidélisation client en Afrique", cible: "Commerçants et commerciaux", probleme: "Clients qui négocient trop bas ou n'achètent qu'une fois", prix: "4 000 FCFA" }
+      ],
+      emploi: [
+        { titre: "Pack CV moderne + Lettre de motivation qui décrochent des entretiens", cible: "Chercheurs d'emploi et stagiaires", probleme: "CV rejetés sans jamais être appelé", prix: "3 500 FCFA" },
+        { titre: "Annales corrigées et astuces pour réussir les concours directs", cible: "Candidats aux concours de la fonction publique", probleme: "Manque de rapidité sur les tests psychotechniques", prix: "5 000 FCFA" },
+        { titre: "Réussir son entretien d'embauche : les 20 questions pièges", cible: "Jeunes diplômés", probleme: "Stress et réponses mal structurées face au jury", prix: "3 000 FCFA" }
+      ],
+      argent: [
+        { titre: "Méthode d'épargne automatique : mettre de côté même avec un petit salaire", cible: "Salariés et travailleurs indépendants", probleme: "Finir chaque mois à zéro sans épargne", prix: "4 000 FCFA" },
+        { titre: "Planificateur de budget mensuel et suivi des dépenses", cible: "Particuliers et couples", probleme: "Dépenses imprévues qui absorbent tout le revenu", prix: "3 000 FCFA" },
+        { titre: "Guide : 7 sources de revenus complémentaires à lancer ce mois-ci", cible: "Personnes ambitieuses", probleme: "Dépendance à une seule source de revenus", prix: "4 500 FCFA" }
+      ],
+      sport: [
+        { titre: "Programme ventre plat et remise en forme à la maison (sans matériel)", cible: "Hommes et femmes occupés", probleme: "Pas le temps ni le budget pour la salle de sport", prix: "4 500 FCFA" },
+        { titre: "Programme prise de masse musculaire avec alimentation locale", cible: "Jeunes sportifs", probleme: "Difficulté à prendre du poids sainement", prix: "5 000 FCFA" },
+        { titre: "Routine mobilité et anti-mal de dos en 15 minutes par jour", cible: "Travailleurs de bureau et conducteurs", probleme: "Douleurs lombaires et fatigue chronique", prix: "3 500 FCFA" }
+      ],
+      photo: [
+        { titre: "Maîtriser le montage vidéo viral sur CapCut depuis son téléphone", cible: "Créateurs de contenu et community managers", probleme: "Vidéos amateur qui ne retiennent pas l'attention", prix: "5 000 FCFA" },
+        { titre: "Pack de 40 effets sonores, transitions et polices pour vidéos", cible: "Monteurs mobile et Tiktokeurs", probleme: "Perte de temps à chercher des ressources pro", prix: "3 000 FCFA" },
+        { titre: "Prendre des photos produits pro avec un simple smartphone", cible: "E-commerçants et restaurateurs", probleme: "Photos sombres qui ne donnent pas envie d'acheter", prix: "4 000 FCFA" }
+      ],
+      btp: [
+        { titre: "Guide : Estimer le coût de construction de sa maison étape par étape", cible: "Particuliers et diaspora", probleme: "Dépassements de budget et devis gonflés", prix: "6 500 FCFA" },
+        { titre: "Checklist de contrôle chantier : éviter les malfaçons", cible: "Propriétaires en construction", probleme: "Mauvais dosage ciment ou erreurs structurelles", prix: "5 000 FCFA" },
+        { titre: "Modèles de devis et suivi de chantier pour artisans BTP", cible: "Maçons, électriciens et entrepreneurs BTP", probleme: "Perte de crédibilité face aux gros clients", prix: "4 000 FCFA" }
+      ],
+      auto: [
+        { titre: "Checklist d'inspection avant d'acheter une voiture d'occasion", cible: "Futurs acheteurs de véhicules", probleme: "Peur des vices cachés et compteurs trafiqués", prix: "4 500 FCFA" },
+        { titre: "Guide : Lancer un business de lavage & detailing auto rentables", cible: "Jeunes entrepreneurs", probleme: "Ne pas savoir quels produits utiliser ni comment fixer ses prix", prix: "6 000 FCFA" },
+        { titre: "Carnet d'entretien et diagnostic des voyants tableau de bord", cible: "Automobilistes", probleme: "Pannes coûteuses évitables", prix: "3 000 FCFA" }
+      ],
+      event: [
+        { titre: "Guide complet : Lancer son activité de décoration événementielle", cible: "Passionnés de déco et événementiel", probleme: "Difficulté à chiffrer les prestations et trouver des clients", prix: "5 500 FCFA" },
+        { titre: "Pack de devis, contrats et fiches de suivi client", cible: "Organisateurs d'événements et traiteurs", probleme: "Impayés et malentendus avec les clients", prix: "3 500 FCFA" },
+        { titre: "30 idées de thèmes et palettes couleurs tendances", cible: "Décorateurs débutants", probleme: "Manque d'inspiration pour les mariages et baptêmes", prix: "4 000 FCFA" }
+      ],
+      naturel: [
+        { titre: "35 recettes d'infusions et soins naturels aux plantes locales", cible: "Personnes cherchant des solutions naturelles", probleme: "Manque de dosages précis et fiables", prix: "4 000 FCFA" },
+        { titre: "Programme minceur 21 jours avec des plats africains équilibrés", cible: "Femmes et hommes souhaitant perdre du poids", probleme: "Régimes européens impossibles à suivre au quotidien", prix: "5 000 FCFA" },
+        { titre: "Fabriquer et vendre ses propres savons et huiles capillaires", cible: "Porteurs de projet cosmétique", probleme: "Ne pas maîtriser la formulation et le packaging", prix: "6 500 FCFA" }
+      ]
+    };
+
+    const selectedSkills = new Set();
+    const pills = document.querySelectorAll(".skill-pill");
+
+    pills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        const key = pill.getAttribute("data-skill");
+        if (selectedSkills.has(key)) {
+          selectedSkills.delete(key);
+          pill.classList.remove("active");
+        } else {
+          if (selectedSkills.size >= 3) {
+            const firstKey = selectedSkills.values().next().value;
+            selectedSkills.delete(firstKey);
+            document.querySelector(`.skill-pill[data-skill="${firstKey}"]`).classList.remove("active");
+          }
+          selectedSkills.add(key);
+          pill.classList.add("active");
+        }
+      });
+    });
+
+    function generateIdeas() {
+      const customText = document.getElementById("custom-skill").value.trim();
+      const container = document.getElementById("ideas-container");
+      const list = document.getElementById("ideas-list");
+      const header = document.getElementById("ideas-header");
+
+      list.innerHTML = "";
+      let results = [];
+
+      if (selectedSkills.size > 0) {
+        selectedSkills.forEach(skill => {
+          if (productDatabase[skill]) {
+            if (selectedSkills.size === 1) {
+              results.push(...productDatabase[skill]);
+            } else {
+              results.push(productDatabase[skill][0], productDatabase[skill][1]);
+            }
+          }
+        });
+      }
+
+      if (customText) {
+        results.unshift(
+          {
+            titre: `Guide Pratique Débutant : Réussir dans « ${customText} » étape par étape`,
+            cible: `Débutants et passionnés de ${customText}`,
+            probleme: "Ne pas savoir par où commencer ni quelles erreurs éviter",
+            prix: "5 000 FCFA"
+          },
+          {
+            titre: `Pack Outils, Checklists & Modèles prêts à l'emploi (${customText})`,
+            cible: `Pratiquants souhaitant gagner du temps`,
+            probleme: "Perte de temps et manque de méthode structurée",
+            prix: "3 500 FCFA"
+          },
+          {
+            titre: `Plan d'action : Monétiser son savoir-faire en ${customText} depuis son téléphone`,
+            cible: `Personnes cherchant un revenu complémentaire en FCFA`,
+            probleme: "Avoir la compétence mais ne pas savoir trouver des clients",
+            prix: "6 000 FCFA"
+          }
+        );
+      }
+
+      if (results.length === 0) {
+        alert("Sélectionne au moins 1 domaine ou écris ta compétence dans la case !");
+        return;
+      }
+
+      header.innerText = `✨ ${results.length} idées de produits rentables générées pour toi :`;
+
+      results.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "idea-card";
+        card.innerHTML = `
+          <div class="idea-top">
+            <div class="idea-title">${item.titre}</div>
+            <div class="idea-price">${item.prix}</div>
+          </div>
+          <div class="idea-meta"><strong>🎯 Cible :</strong> ${item.cible}</div>
+          <div class="idea-meta"><strong>💡 Problème résolu :</strong> ${item.probleme}</div>
+        `;
+        list.appendChild(card);
+      });
+
+      container.style.display = "block";
+      container.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+</body>
+</html>
